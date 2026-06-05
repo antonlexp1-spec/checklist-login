@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist Empresa</title>
+
+<style>
+body{
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:#f5f5f5;
+    font-family:Arial;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 2px 10px rgba(0,0,0,.2);
+    text-align:center;
+}
+
+button{
+    background:#00a651;
+    color:white;
+    border:none;
+    padding:20px 40px;
+    border-radius:10px;
+    font-size:20px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Abrir Checklist</h2>
+    <button onclick="iniciarLogin()">
+        Entrar no Checklist
+    </button>
+</div>
+
+<script>
+function iniciarLogin() {
+
+    const usuario = "pmcautomotiva@pmcautomotiva.com.br";
+    const senha = "Pmc@2026";
+
+    const novaJanela = window.open(
+        "https://spa.checklistfacil.com.br/login?lang=pt-br",
+        "_blank"
+    );
+
+    const intervalo = setInterval(() => {
+
+        try {
+
+            const doc = novaJanela.document;
+
+            const campoUsuario =
+                doc.querySelector('[formcontrolname="username"]');
+
+            if (campoUsuario) {
+
+                campoUsuario.value = usuario;
+                campoUsuario.dispatchEvent(
+                    new Event('input', { bubbles: true })
+                );
+
+                const botao =
+                    doc.querySelector('button[type="submit"]');
+
+                if (botao) {
+                    botao.click();
+                }
+
+                setTimeout(() => {
+
+                    const campoSenha =
+                        doc.querySelector(
+                        '[formcontrolname="password"]'
+                    );
+
+                    if (campoSenha) {
+
+                        campoSenha.value = senha;
+
+                        campoSenha.dispatchEvent(
+                            new Event('input',
+                            { bubbles: true })
+                        );
+
+                        const btnEntrar =
+                            doc.querySelector(
+                                'button[type="submit"]'
+                            );
+
+                        if(btnEntrar){
+                            btnEntrar.click();
+                        }
+
+                        clearInterval(intervalo);
+                    }
+
+                }, 2500);
+            }
+
+        } catch(e){
+            console.log("Aguardando tela...");
+        }
+
+    }, 1500);
+}
+</script>
+
+</body>
+</html>
